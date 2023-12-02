@@ -1,5 +1,6 @@
 import { ChatGPTAPI } from 'chatgpt';
-import whois from 'whois-json';
+// @ts-ignore
+import whois from 'whois-parsed';
 import * as z from 'zod';
 
 const domainRequestSchema = z.object({
@@ -44,8 +45,9 @@ const checkDomainAvailability = async (domains: string[]) => {
     const domainName = domain.split(' ')[1]?.replace(/,/g, '');
     if (domainName) {
       try {
-        const domainInfo = await whois(domainName, { follow: 3, timeout: 3000 });
-        if (!domainInfo.hasOwnProperty('domainName')) {
+        const domainInfo = await whois.lookup(domainName, { follow: 3, timeout: 3000 });
+
+        if (domainInfo.hasOwnProperty('isAvailable') && domainInfo.isAvailable === true) {
           availableDomains.push(domainName);
         }
       } catch (e) {

@@ -13,14 +13,13 @@
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
-    "whois-json": "^2.0.4",
+    "whois-parsed": "^1.0.14",
     "zod": "^3.22.4"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@types/whois-json": "^2.0.4",
     "autoprefixer": "^10.0.1",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",

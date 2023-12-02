@@ -1,3 +1,4 @@
+"use client"
 import { useState } from 'react';
 
 export default function Page() {
@@ -30,11 +31,6 @@ export default function Page() {
   return (
     <div className="container mx-auto p-4">
       <h4 className="text-lg font-semibold mb-4">DomainGPT - Ask ChatGPT to discover available domain names for your startup</h4>
-      <div>
-        {availableDomains.map((domain, index) => (
-          <div key={index} className="p-2 bg-gray-200 my-1 rounded">{domain}</div>
-        ))}
-      </div>
       <form onSubmit={submitPrompt} className="my-4">
         <input
           type="text"
@@ -42,7 +38,7 @@ export default function Page() {
           onChange={(e) => setPrompt(e.target.value)}
           placeholder="What does your startup do?"
           autoComplete="off"
-          className="px-3 py-2 border border-gray-300 rounded mr-2"
+          className="px-3 py-2 border border-gray-300 rounded mr-2 w-full mb-4"
         />
         <button
           type="submit"
@@ -54,6 +50,11 @@ export default function Page() {
       </form>
       {loading && <p className="text-blue-600">Loading...</p>}
       <small className="text-sm text-gray-600">Please be patient with ChatGPT. It can take minutes during peak hours.</small>
+      <div>
+        {availableDomains.map((domain, index) => (
+          <div key={index} className="p-2 bg-gray-200 my-1 rounded">{domain}</div>
+        ))}
+      </div>
     </div>
   );
 }
