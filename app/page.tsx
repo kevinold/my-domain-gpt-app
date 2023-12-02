@@ -49,7 +49,6 @@ export default function Page() {
         </button>
       </form>
       {loading && <p className="text-blue-600">Loading...</p>}
-      <small className="text-sm text-gray-600">Please be patient with ChatGPT. It can take minutes during peak hours.</small>
       <div>
         {availableDomains.map((domain, index) => (
           <div key={index} className="p-2 bg-gray-200 my-1 rounded">{domain}</div>
