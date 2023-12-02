@@ -34,7 +34,8 @@ export async function POST(req: Request) {
 
 const getChatGPTResponse = async (prompt: string) => {
   const apiClient = new ChatGPTAPI({ apiKey: process.env.OPENAI_API_KEY! });
-  const response = await apiClient.sendMessage(`Suggest domain names for a company that ${prompt}`);
+  const response = await apiClient.sendMessage(`Suggest .com and .app domain names for a company that ${prompt}`);
+  console.log('response', response)
   return response.text.split('\n');
 };
 
