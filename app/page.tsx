@@ -1,5 +1,66 @@
-import Image from 'next/image'
+import { useState } from 'react';
 
+export default function Page() {
+  const [prompt, setPrompt] = useState('');
+  const [availableDomains, setAvailableDomains] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const submitPrompt = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/askdomaingpt', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt }),
+      });
+
+      const data = await response.json();
+      setAvailableDomains(data.availableDomains);
+    } catch (error) {
+      console.error('Error:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="container mx-auto p-4">
+      <h4 className="text-lg font-semibold mb-4">DomainGPT - Ask ChatGPT to discover available domain names for your startup</h4>
+      <div>
+        {availableDomains.map((domain, index) => (
+          <div key={index} className="p-2 bg-gray-200 my-1 rounded">{domain}</div>
+        ))}
+      </div>
+      <form onSubmit={submitPrompt} className="my-4">
+        <input
+          type="text"
+          value={prompt}
+          onChange={(e) => setPrompt(e.target.value)}
+          placeholder="What does your startup do?"
+          autoComplete="off"
+          className="px-3 py-2 border border-gray-300 rounded mr-2"
+        />
+        <button
+          type="submit"
+          className={`px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600 ${loading ? 'opacity-50' : ''}`}
+          disabled={loading}
+        >
+          Submit
+        </button>
+      </form>
+      {loading && <p className="text-blue-600">Loading...</p>}
+      <small className="text-sm text-gray-600">Please be patient with ChatGPT. It can take minutes during peak hours.</small>
+    </div>
+  );
+}
+
+
+
+/*
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
@@ -111,3 +172,4 @@ export default function Home() {
     </main>
   )
 }
+*/
